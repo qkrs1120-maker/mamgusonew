@@ -5,9 +5,22 @@
 
 const CREDIT_CACHE_KEY   = 'maullab_credits_cache'; // UI용 캐시
 const UID_KEY            = 'maullab_uid';            // 고유 익명 ID (쿠키와 무관)
+const ADMIN_KEY          = 'maullab_admin_mode';     // 운영자 모드 키
 const CREDIT_PER_TEST    = 10;
 const CREDIT_PER_SHARE   = 10;
 const API_BASE           = '/api';
+
+// ── 운영자 모드 (내부용) ───────────────────────────
+function isAdminMode() {
+  return localStorage.getItem(ADMIN_KEY) === 'true';
+}
+
+function disableAdminMode() {
+  localStorage.removeItem(ADMIN_KEY);
+  _setCreditCache(100);
+  refreshAllCreditBadges();
+  console.log('운영자 모드 해제됨');
+}
 
 // ── UID 관리 ──────────────────────────────────────
 function generateUID() {
@@ -32,6 +45,7 @@ function getUID() {
 
 // ── 캐시 읽기 (즉시 반환 — UI 블로킹 없음) ────────
 function getCredits() {
+  if (isAdminMode()) return 99999;
   const cached = localStorage.getItem(CREDIT_CACHE_KEY);
   // 캐시가 없으면 서버 초기화 전이므로 100 표시
   return cached !== null ? (parseInt(cached, 10) || 0) : 100;
@@ -80,6 +94,10 @@ async function initCreditSystem() {
 
 // ── 크레딧 차감 (서버 기준 + 낙관적 UI 업데이트) ───
 async function deductCredits(amount) {
+  // 운영자 모드: 차감 없이 즉시 성공 반환
+  if (isAdminMode()) {
+    return { ok: true, credit: 99999 };
+  }
   const uid = getUID();
   // 낙관적 업데이트: 즉시 UI에 반영
   const optimistic = Math.max(0, getCredits() - amount);

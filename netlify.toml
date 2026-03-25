@@ -1,0 +1,19 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# API 라우트 리다이렉트 (/api/* → /.netlify/functions/*)
+[[redirects]]
+  from = "/api/*"
+  to   = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA 폴백
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200
+  conditions = {Role = ["admin"]}

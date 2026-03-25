@@ -1,0 +1,503 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>커뮤니티 — 마음연구소</title>
+  <meta name="description" content="마음연구소 커뮤니티 — 사주 이야기, 연애 고민, 심리 테스트 결과를 함께 나눠요." />
+  <link rel="stylesheet" href="style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2567294396988257" crossorigin="anonymous"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-405F4WEG03"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-405F4WEG03');</script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif; }
+
+    .comm-hero {
+      background: linear-gradient(160deg, #F5F3FF 0%, #EEF2FF 100%);
+      padding: 60px 0 40px; text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .comm-hero h1 { margin-bottom: 10px; }
+    .comm-hero p { color: var(--text-muted); font-size: 0.95rem; }
+
+    .comm-layout {
+      max-width: 900px; margin: 0 auto; padding: 32px 20px 100px;
+      display: grid; grid-template-columns: 1fr 280px; gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .comm-layout { grid-template-columns: 1fr; }
+      .comm-sidebar { order: -1; }
+    }
+
+    /* 카테고리 탭 */
+    .cat-tabs {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .cat-tab {
+      padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700;
+      border: 1.5px solid var(--border); background: white; cursor: pointer;
+      color: var(--text-muted); transition: all 0.2s;
+    }
+    .cat-tab.active, .cat-tab:hover {
+      background: var(--gradient); color: white; border-color: transparent;
+    }
+
+    /* 글쓰기 폼 */
+    .write-card {
+      background: white; border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow);
+    }
+    .write-card textarea {
+      width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 12px; font-size: 0.9rem; font-family: inherit; resize: vertical;
+      min-height: 80px; outline: none; box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    .write-card textarea:focus { border-color: var(--primary); }
+    .write-row {
+      display: flex; gap: 10px; align-items: center; margin-top: 10px; flex-wrap: wrap;
+    }
+    .write-row input {
+      flex: 1; min-width: 120px; padding: 9px 12px; border-radius: 8px;
+      border: 1.5px solid var(--border); font-size: 0.85rem; font-family: inherit;
+      outline: none;
+    }
+    .write-row input:focus { border-color: var(--primary); }
+    .write-row select {
+      padding: 9px 12px; border-radius: 8px; border: 1.5px solid var(--border);
+      font-size: 0.85rem; font-family: inherit; outline: none; background: white;
+    }
+    .write-btn {
+      padding: 9px 22px; background: var(--gradient); color: white;
+      border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; white-space: nowrap;
+    }
+
+    /* 게시글 */
+    .post-list { display: flex; flex-direction: column; gap: 12px; }
+    .post-card {
+      background: white; border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 18px 20px; box-shadow: var(--shadow); transition: box-shadow 0.2s;
+    }
+    .post-card:hover { box-shadow: var(--shadow-md); }
+    .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+    .post-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--gradient); display: flex; align-items: center;
+      justify-content: center; color: white; font-size: 0.8rem; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .post-meta { flex: 1; }
+    .post-nick { font-size: 0.85rem; font-weight: 700; }
+    .post-time { font-size: 0.72rem; color: var(--text-muted); }
+    .post-cat-badge {
+      padding: 2px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700;
+    }
+    .post-body { font-size: 0.9rem; line-height: 1.8; color: var(--text); margin-bottom: 12px; }
+    .post-footer {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 0.8rem; color: var(--text-muted);
+    }
+    .like-btn {
+      background: none; border: 1px solid var(--border); border-radius: 20px;
+      padding: 4px 12px; cursor: pointer; font-size: 0.8rem; display: flex;
+      align-items: center; gap: 5px; transition: all 0.2s;
+    }
+    .like-btn:hover, .like-btn.liked {
+      background: #FEE2E2; border-color: #FCA5A5; color: #DC2626;
+    }
+    .comment-toggle {
+      background: none; border: none; cursor: pointer; font-size: 0.8rem;
+      color: var(--text-muted); display: flex; align-items: center; gap: 4px;
+    }
+    .comment-toggle:hover { color: var(--primary); }
+
+    /* 댓글 */
+    .comments-wrap {
+      margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+      display: none;
+    }
+    .comments-wrap.open { display: block; }
+    .comment-item {
+      display: flex; gap: 10px; margin-bottom: 10px;
+    }
+    .comment-avatar {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: linear-gradient(135deg,#E0E7FF,#C7D2FE);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 800; color: var(--primary); flex-shrink: 0;
+    }
+    .comment-bubble {
+      background: #F9FAFB; border-radius: 10px; padding: 8px 12px; flex: 1;
+    }
+    .comment-nick { font-size: 0.75rem; font-weight: 700; margin-bottom: 3px; }
+    .comment-text { font-size: 0.82rem; line-height: 1.6; color: var(--text); }
+    .comment-form { display: flex; gap: 8px; margin-top: 10px; }
+    .comment-form input {
+      flex: 1; padding: 8px 12px; border-radius: 8px; border: 1.5px solid var(--border);
+      font-size: 0.82rem; font-family: inherit; outline: none;
+    }
+    .comment-form input:focus { border-color: var(--primary); }
+    .comment-form button {
+      padding: 8px 14px; background: var(--gradient); color: white;
+      border: none; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+    }
+
+    /* 사이드바 */
+    .comm-sidebar { display: flex; flex-direction: column; gap: 16px; }
+    .sidebar-card {
+      background: white; border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 18px; box-shadow: var(--shadow);
+    }
+    .sidebar-card h4 { font-size: 0.88rem; font-weight: 800; margin-bottom: 12px; }
+    .hot-post-item {
+      display: flex; gap: 10px; align-items: flex-start; padding: 8px 0;
+      border-bottom: 1px solid var(--border); cursor: pointer;
+    }
+    .hot-post-item:last-child { border-bottom: none; }
+    .hot-rank {
+      font-size: 0.75rem; font-weight: 900; color: var(--primary);
+      width: 18px; flex-shrink: 0; padding-top: 1px;
+    }
+    .hot-text { font-size: 0.82rem; line-height: 1.5; color: var(--text); }
+    .hot-text:hover { color: var(--primary); }
+
+    .rule-item {
+      display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px;
+      font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;
+    }
+    .rule-icon { font-size: 0.9rem; flex-shrink: 0; }
+
+    /* 광고 위치 */
+    .comm-ad { margin: 20px 0; }
+
+    /* empty state */
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+    .empty-state div { font-size: 2.5rem; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🧠</div>
+      <span class="text-gradient">마음연구소</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">홈</a>
+      <a href="tests.html">테스트</a>
+      <a href="saju.html">🀄 사주</a>
+      <a href="astro.html">⭐ 별자리</a>
+      <a href="naming.html">✨ 작명</a>
+      <a href="community.html" class="active">💬 커뮤니티</a>
+    </nav>
+    <a href="tests.html" class="header-cta">테스트 시작 →</a>
+  </div>
+</header>
+
+<!-- 히어로 -->
+<div class="comm-hero">
+  <div class="container">
+    <div class="section-eyebrow">💬 커뮤니티</div>
+    <h1>같이 이야기해요</h1>
+    <p>사주 결과, 연애 고민, 심리 테스트 이야기를 마음 편하게 나눠보세요.</p>
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+      <span style="background:white;border:1px solid var(--border);padding:5px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;">👥 오늘 접속자 128명</span>
+      <span style="background:white;border:1px solid var(--border);padding:5px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;">💬 총 게시글 2,341개</span>
+    </div>
+  </div>
+</div>
+
+<div class="comm-layout">
+  <!-- 메인 피드 -->
+  <div class="comm-main">
+    <!-- 광고 -->
+    <div class="ad-container comm-ad">
+      <div class="ad-banner" style="max-width:100%;margin:0;"></div>
+    </div>
+
+    <!-- 카테고리 탭 -->
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-tab active" data-cat="전체">전체</button>
+      <button class="cat-tab" data-cat="사주이야기">🀄 사주이야기</button>
+      <button class="cat-tab" data-cat="연애고민">💕 연애고민</button>
+      <button class="cat-tab" data-cat="별자리">⭐ 별자리</button>
+      <button class="cat-tab" data-cat="테스트후기">🧠 테스트후기</button>
+      <button class="cat-tab" data-cat="자유">✏️ 자유</button>
+    </div>
+
+    <!-- 글쓰기 -->
+    <div class="write-card">
+      <textarea id="postContent" placeholder="마음 편하게 이야기를 나눠보세요..."></textarea>
+      <div class="write-row">
+        <input id="postNick" type="text" placeholder="닉네임 (익명 가능)" maxlength="12" />
+        <select id="postCat">
+          <option value="자유">✏️ 자유</option>
+          <option value="사주이야기">🀄 사주이야기</option>
+          <option value="연애고민">💕 연애고민</option>
+          <option value="별자리">⭐ 별자리</option>
+          <option value="테스트후기">🧠 테스트후기</option>
+        </select>
+        <button class="write-btn" onclick="submitPost()">게시하기</button>
+      </div>
+    </div>
+
+    <!-- 게시글 목록 -->
+    <div class="post-list" id="postList"></div>
+  </div>
+
+  <!-- 사이드바 -->
+  <div class="comm-sidebar">
+    <div class="sidebar-card">
+      <h4>🔥 인기글</h4>
+      <div id="hotPosts"></div>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>📌 커뮤니티 규칙</h4>
+      <div class="rule-item"><span class="rule-icon">👍</span><span>서로 존중하며 따뜻하게 소통해요</span></div>
+      <div class="rule-item"><span class="rule-icon">🚫</span><span>욕설·비방·홍보성 글은 삭제돼요</span></div>
+      <div class="rule-item"><span class="rule-icon">🔒</span><span>개인정보는 공유하지 마세요</span></div>
+      <div class="rule-item"><span class="rule-icon">💜</span><span>힘든 이야기도 환영해요. 우리 함께해요!</span></div>
+    </div>
+
+    <div class="sidebar-card" style="background:var(--gradient-soft);">
+      <h4>✨ 오늘의 사주 한마디</h4>
+      <p id="dailyQuote" style="font-size:0.85rem;line-height:1.8;color:var(--text);"></p>
+    </div>
+
+    <!-- 사이드 광고 -->
+    <div class="ad-container">
+      <div class="ad-banner" style="max-width:100%;margin:0;min-height:120px;"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:12px;">
+          <div class="logo-icon">🧠</div>
+          <span class="text-gradient" style="font-size:1.1rem;font-weight:800;">마음연구소</span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-muted);">나를 가장 잘 아는 심리 테스트 플랫폼</p>
+      </div>
+      <div><h4>서비스</h4><ul>
+        <li><a href="saju.html">사주 분석</a></li>
+        <li><a href="astro.html">별자리 분석</a></li>
+        <li><a href="naming.html">무료 작명</a></li>
+        <li><a href="tests.html">심리 테스트</a></li>
+        <li><a href="community.html">커뮤니티</a></li>
+      </ul></div>
+      <div><h4>정보</h4><ul>
+        <li><a href="privacy.html">개인정보처리방침</a></li>
+        <li><a href="terms.html">이용약관</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 마음연구소.</span></div>
+  </div>
+</footer>
+
+<nav class="mobile-bottom-nav">
+  <div class="mobile-bottom-nav-inner">
+    <a href="index.html" class="mobile-nav-item"><span class="nav-icon">🏠</span>홈</a>
+    <a href="tests.html" class="mobile-nav-item"><span class="nav-icon">🧠</span>테스트</a>
+    <a href="saju.html" class="mobile-nav-item"><span class="nav-icon">🀄</span>사주</a>
+    <a href="astro.html" class="mobile-nav-item"><span class="nav-icon">⭐</span>별자리</a>
+    <a href="community.html" class="mobile-nav-item active"><span class="nav-icon">💬</span>커뮤니티</a>
+  </div>
+</nav>
+
+<script>
+const CAT_COLORS = {
+  '사주이야기':'#EDE9FE,#7C3AED','연애고민':'#FDF2F8,#EC4899','별자리':'#EFF6FF,#2563EB',
+  '테스트후기':'#F0FDF4,#059669','자유':'#F9FAFB,#6B7280'
+};
+const DAILY_QUOTES = [
+  '사주는 운명을 결정하는 것이 아니라, 더 나은 선택을 위한 나침반이에요.',
+  '오행은 서로 돕고 견제하며 균형을 만들어요. 당신의 삶도 그렇게 흐르고 있어요.',
+  '지금 이 순간, 당신의 선택이 사주보다 더 강력한 힘을 가지고 있어요.',
+  '용신을 알면 막힌 운을 뚫는 열쇠를 찾을 수 있어요.',
+  '대운이 바뀌는 시기는 위기이자 기회예요. 준비된 사람에게만 보이는 문이 열려요.',
+  '사주에서 가장 중요한 건 타고난 기운이 아니라, 그 기운을 어떻게 쓰느냐예요.',
+];
+
+let posts = [];
+let currentCat = '전체';
+
+function loadPosts() {
+  try { posts = JSON.parse(localStorage.getItem('mrlPosts') || '[]'); } catch(e) { posts = []; }
+  if (posts.length === 0) {
+    posts = [
+      { id: 1, nick: '달토끼💜', cat: '사주이야기', content: '오늘 마음연구소에서 사주 분석 처음 해봤는데 오행 분석이 생각보다 너무 잘 맞아서 소름 돋았어요... 수 기운이 강하다고 나왔는데 저 원래 혼자 있는 시간 정말 필요한 사람이에요 ㅋㅋ', time: '2시간 전', likes: 24, comments: [{ nick: '별빛✨', text: '저도 수 기운인데 공감 100%예요ㅠㅠ' }] },
+      { id: 2, nick: '익명사용자', cat: '연애고민', content: '좋아하는 사람이 생겼는데 그 사람 사주 궁합 같이 보고 싶어서 생년월일 물어봐도 될까요... 너무 직접적인가ㅜ', time: '4시간 전', likes: 31, comments: [{ nick: '초코라떼', text: '별자리 물어본다고 하면 자연스러울 수도 있어요 ㅎㅎ' }] },
+      { id: 3, nick: 'INFP민준', cat: '테스트후기', content: '그 사람이 나를 그리워할까 테스트 했는데 "아직 마음이 남아있을 가능성 높음" 나와서 오늘 하루 행복했어요. 현실이 아니어도 위로가 됩니다 😅', time: '6시간 전', likes: 47, comments: [] },
+      { id: 4, nick: '사주덕후', cat: '사주이야기', content: '사주에서 목 기운이 강한 사람들은 진짜 추진력이 넘쳐요. 제 친구가 목 기운 甲인데 항상 먼저 행동하고 나중에 생각하는 스타일 ㅋㅋㅋ 맞아요?', time: '어제', likes: 19, comments: [{ nick: '연구소팬', text: '목 기운 친구 있는데 진짜 딱이에요ㅋㅋ' }] },
+    ];
+    savePosts();
+  }
+}
+
+function savePosts() {
+  try { localStorage.setItem('mrlPosts', JSON.stringify(posts)); } catch(e) {}
+}
+
+function getCatBadge(cat) {
+  const c = CAT_COLORS[cat] || '#F9FAFB,#6B7280';
+  const [bg, color] = c.split(',');
+  return `<span class="post-cat-badge" style="background:${bg};color:${color};">${cat}</span>`;
+}
+
+function timeAgo(ms) {
+  const diff = Date.now() - ms;
+  if (diff < 60000) return '방금 전';
+  if (diff < 3600000) return Math.floor(diff/60000) + '분 전';
+  if (diff < 86400000) return Math.floor(diff/3600000) + '시간 전';
+  return Math.floor(diff/86400000) + '일 전';
+}
+
+function renderPosts() {
+  const list = document.getElementById('postList');
+  const filtered = currentCat === '전체' ? posts : posts.filter(p => p.cat === currentCat);
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="empty-state"><div>🌙</div><p>아직 게시글이 없어요.<br>첫 번째로 이야기를 시작해보세요!</p></div>';
+    return;
+  }
+  list.innerHTML = filtered.slice().reverse().map(p => {
+    const avatarText = p.nick ? p.nick[0] : '?';
+    const comments = p.comments || [];
+    return `
+    <div class="post-card" id="post-${p.id}">
+      <div class="post-header">
+        <div class="post-avatar" style="background:hsl(${(p.id*47)%360},60%,55%);">${avatarText}</div>
+        <div class="post-meta">
+          <div class="post-nick">${p.nick || '익명'}</div>
+          <div class="post-time">${typeof p.time === 'number' ? timeAgo(p.time) : p.time}</div>
+        </div>
+        ${getCatBadge(p.cat)}
+      </div>
+      <div class="post-body">${p.content.replace(/\n/g,'<br>')}</div>
+      <div class="post-footer">
+        <button class="like-btn ${(getLikedIds().includes(p.id)?'liked':'')}" onclick="toggleLike(${p.id})">
+          ❤️ <span id="likes-${p.id}">${p.likes||0}</span>
+        </button>
+        <button class="comment-toggle" onclick="toggleComments(${p.id})">
+          💬 댓글 ${comments.length}개
+        </button>
+      </div>
+      <div class="comments-wrap" id="comments-${p.id}">
+        ${comments.map(c=>`
+          <div class="comment-item">
+            <div class="comment-avatar">${c.nick?c.nick[0]:'?'}</div>
+            <div class="comment-bubble">
+              <div class="comment-nick">${c.nick||'익명'}</div>
+              <div class="comment-text">${c.text}</div>
+            </div>
+          </div>`).join('')}
+        <div class="comment-form">
+          <input type="text" placeholder="댓글 달기..." id="cInput-${p.id}" maxlength="100" onkeydown="if(event.key==='Enter')addComment(${p.id})" />
+          <button onclick="addComment(${p.id})">등록</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  renderHotPosts();
+}
+
+function getLikedIds() {
+  try { return JSON.parse(localStorage.getItem('mrlLiked')||'[]'); } catch(e) { return []; }
+}
+
+function toggleLike(id) {
+  const liked = getLikedIds();
+  const post = posts.find(p=>p.id===id);
+  if (!post) return;
+  if (liked.includes(id)) {
+    post.likes = Math.max(0,(post.likes||0)-1);
+    localStorage.setItem('mrlLiked', JSON.stringify(liked.filter(x=>x!==id)));
+  } else {
+    post.likes = (post.likes||0)+1;
+    liked.push(id);
+    localStorage.setItem('mrlLiked', JSON.stringify(liked));
+  }
+  savePosts();
+  document.getElementById(`likes-${id}`).textContent = post.likes;
+  const btn = document.querySelector(`#post-${id} .like-btn`);
+  if (btn) btn.classList.toggle('liked', getLikedIds().includes(id));
+}
+
+function toggleComments(id) {
+  const wrap = document.getElementById(`comments-${id}`);
+  if (wrap) wrap.classList.toggle('open');
+}
+
+function addComment(postId) {
+  const input = document.getElementById(`cInput-${postId}`);
+  const text = (input?.value||'').trim();
+  if (!text) return;
+  const post = posts.find(p=>p.id===postId);
+  if (!post) return;
+  if (!post.comments) post.comments = [];
+  post.comments.push({ nick: '익명', text });
+  savePosts();
+  input.value = '';
+  renderPosts();
+  setTimeout(()=>{
+    document.getElementById(`comments-${postId}`)?.classList.add('open');
+  },50);
+}
+
+function submitPost() {
+  const content = document.getElementById('postContent').value.trim();
+  const nick = document.getElementById('postNick').value.trim() || '익명';
+  const cat = document.getElementById('postCat').value;
+  if (!content) { alert('내용을 입력해주세요!'); return; }
+  const newPost = {
+    id: Date.now(),
+    nick, cat, content,
+    time: Date.now(),
+    likes: 0, comments: []
+  };
+  posts.push(newPost);
+  savePosts();
+  document.getElementById('postContent').value = '';
+  document.getElementById('postNick').value = '';
+  renderPosts();
+}
+
+function renderHotPosts() {
+  const hot = posts.slice().sort((a,b)=>(b.likes||0)-(a.likes||0)).slice(0,5);
+  const el = document.getElementById('hotPosts');
+  if (!el) return;
+  el.innerHTML = hot.map((p,i)=>`
+    <div class="hot-post-item" onclick="toggleComments(${p.id});document.getElementById('post-${p.id}')?.scrollIntoView({behavior:'smooth'})">
+      <div class="hot-rank">${i+1}</div>
+      <div class="hot-text">${p.content.slice(0,35)}${p.content.length>35?'...':''}</div>
+    </div>`).join('');
+}
+
+// 카테고리 탭
+document.getElementById('catTabs').addEventListener('click', e => {
+  const btn = e.target.closest('.cat-tab');
+  if (!btn) return;
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = btn.dataset.cat;
+  renderPosts();
+});
+
+// 오늘의 한마디
+const quoteEl = document.getElementById('dailyQuote');
+if (quoteEl) quoteEl.textContent = DAILY_QUOTES[new Date().getDay() % DAILY_QUOTES.length];
+
+loadPosts();
+renderPosts();
+</script>
+</body>
+</html>
+
+
+

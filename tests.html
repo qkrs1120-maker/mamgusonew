@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>테스트 목록 — 마음연구소</title>
+  <meta name="description" content="MBTI, 연애 심리, 직업 적성, 감정 유형까지 48가지 무료 심리 테스트. 지금 바로 시작하세요." />
+  <link rel="stylesheet" href="style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2567294396988257"
+     crossorigin="anonymous"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+    /* 모바일: 사이드바 숨기고 그리드 1열로 */
+    @media (max-width: 768px) {
+      .tests-layout { grid-template-columns: 1fr !important; }
+      .tests-sidebar { display: none !important; }
+      .tests-grid   { grid-template-columns: 1fr !important; }
+      .tab-group    { gap: 6px !important; }
+      .tab-btn      { font-size: 0.78rem !important; padding: 7px 12px !important; }
+    }
+    @media (min-width: 480px) and (max-width: 768px) {
+      .tests-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+  </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-405F4WEG03"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-405F4WEG03');
+  </script></head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🧠</div>
+      <span class="text-gradient">마음연구소</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">홈</a>
+      <a href="tests.html" class="active">테스트 목록</a>
+      <a href="tests.html?cat=mbti">MBTI</a>
+      <a href="tests.html?cat=love">연애 심리</a>
+      <a href="tests.html?cat=career">진로 성향</a>
+      <a href="naming.html">✨ 작명</a>
+    </nav>
+    <a href="tests.html" class="header-cta">무료 테스트 시작 →</a>
+  </div>
+</header>
+
+<!-- ===== 리스트 페이지 히어로 ===== -->
+<section style="background:var(--gradient-soft);padding:60px 0 48px;">
+  <div class="container" style="text-align:center;">
+    <div class="section-eyebrow">전체 테스트</div>
+    <h1 style="margin:16px 0 12px;">나를 발견하는 <span class="text-gradient">48가지 여정</span></h1>
+    <p>심리학, MBTI, 연애, 진로까지. 모든 테스트는 완전 무료입니다.</p>
+  </div>
+</section>
+
+<!-- ===== 상단 광고 ===== -->
+<div class="ad-container container">
+  <div class="ad-banner ad-banner-728" style="max-width:728px;margin:0 auto;">
+    Google AdSense 리더보드 (728×90)
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <!-- 검색 + 정렬 -->
+    <div style="display:flex;gap:16px;margin-bottom:28px;flex-wrap:wrap;align-items:center;">
+      <input type="text" id="searchInput" placeholder="🔍  테스트 검색..."
+        style="flex:1;min-width:220px;padding:12px 18px;border-radius:50px;
+               border:2px solid var(--border);font-size:0.9rem;outline:none;
+               transition:border-color 0.2s;"
+        onfocus="this.style.borderColor='var(--primary)'"
+        onblur="this.style.borderColor='var(--border)'"
+        oninput="filterTests()" />
+      <select id="sortSelect" onchange="filterTests()"
+        style="padding:12px 18px;border-radius:50px;border:2px solid var(--border);
+               font-size:0.9rem;outline:none;background:white;cursor:pointer;">
+        <option value="popular">인기순</option>
+        <option value="new">최신순</option>
+        <option value="fast">빠른 테스트순</option>
+      </select>
+    </div>
+
+    <!-- 카테고리 탭 -->
+    <div class="tab-group" id="tabGroup">
+      <button class="tab-btn active" data-cat="all" onclick="setTab(this,'all')">전체</button>
+      <button class="tab-btn" data-cat="mbti" onclick="setTab(this,'mbti')">🔤 MBTI</button>
+      <button class="tab-btn" data-cat="love" onclick="setTab(this,'love')">💕 연애 심리</button>
+      <button class="tab-btn" data-cat="astro" onclick="setTab(this,'astro')">✨ 별자리·점성술</button>
+      <button class="tab-btn" data-cat="saju" onclick="setTab(this,'saju')">🀄 사주·운세</button>
+      <button class="tab-btn" data-cat="career" onclick="setTab(this,'career')">💼 직업·진로</button>
+      <button class="tab-btn" data-cat="emotion" onclick="setTab(this,'emotion')">🌊 감정·성격</button>
+      <button class="tab-btn" data-cat="relation" onclick="setTab(this,'relation')">🤝 인간관계</button>
+      <button class="tab-btn" data-cat="fun" onclick="setTab(this,'fun')">🎉 가볍게</button>
+    </div>
+
+    <!-- 결과 카운트 -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <span id="resultCount" style="font-size:0.875rem;color:var(--text-muted);font-weight:600;"></span>
+    </div>
+
+    <!-- 사이드 광고 + 그리드 레이아웃 -->
+    <div class="tests-layout" style="display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:start;">
+      <div>
+        <div class="tests-grid grid-3" id="testGrid" style="grid-template-columns:repeat(2,1fr);">
+          <!-- JS 렌더링 -->
+        </div>
+        <!-- 페이지네이션 -->
+        <div style="text-align:center;margin-top:48px;" id="paginationArea">
+          <button onclick="loadMore()" id="loadMoreBtn"
+            class="btn btn-outline">더 보기 (남은 테스트 로드)</button>
+        </div>
+      </div>
+
+      <!-- 우측 사이드바 광고 -->
+      <div class="tests-sidebar" style="position:sticky;top:80px;">
+        <div class="ad-banner ad-banner-300" style="margin-bottom:20px;">
+          Google AdSense 사이드바 (300×250)
+        </div>
+        <!-- 제휴 추천 -->
+        <div class="card card-body" style="margin-bottom:20px;">
+          <h4 style="font-size:0.9rem;margin-bottom:14px;">🔮 오늘의 추천 테스트</h4>
+          <a href="test.html?id=tarot-today" style="display:flex;gap:12px;margin-bottom:14px;text-decoration:none;">
+            <div style="width:52px;height:52px;border-radius:8px;background:rgba(155,92,255,0.15);
+                        display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🃏</div>
+            <div>
+              <div style="font-size:0.8rem;font-weight:600;color:var(--text);margin-bottom:2px;">오늘의 타로 카드</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">오늘 나에게 필요한 메시지</div>
+              <div style="font-size:0.75rem;color:var(--primary-light);font-weight:600;">바로가기 →</div>
+            </div>
+          </a>
+          <a href="test.html?id=zodiac-personality" style="display:flex;gap:12px;margin-bottom:14px;text-decoration:none;">
+            <div style="width:52px;height:52px;border-radius:8px;background:rgba(0,212,255,0.1);
+                        display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">⭐</div>
+            <div>
+              <div style="font-size:0.8rem;font-weight:600;color:var(--text);margin-bottom:2px;">별자리 성격 분석</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">불·흙·바람·물 유형 테스트</div>
+              <div style="font-size:0.75rem;color:var(--primary-light);font-weight:600;">바로가기 →</div>
+            </div>
+          </a>
+          <a href="test.html?id=saju-personality" style="display:flex;gap:12px;text-decoration:none;">
+            <div style="width:52px;height:52px;border-radius:8px;background:rgba(255,230,0,0.1);
+                        display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🀄</div>
+            <div>
+              <div style="font-size:0.8rem;font-weight:600;color:var(--text);margin-bottom:2px;">사주 오행 기질 테스트</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">목화토금수 나의 기운은?</div>
+              <div style="font-size:0.75rem;color:var(--primary-light);font-weight:600;">바로가기 →</div>
+            </div>
+          </a>
+        </div>
+        <div class="ad-banner ad-banner-300">
+          Google AdSense 사이드바 (300×250) #2
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <a href="index.html" style="color:#9CA3AF;display:flex;align-items:center;gap:8px;">
+        <span>🧠</span><strong>마음연구소</strong>
+      </a>
+      <span style="font-size:0.8rem;">© 2026 마음연구소. 이 페이지에는 광고 및 제휴 링크가 포함됩니다.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="quiz-data.js"></script>
+<script>
+  let currentCat = 'all';
+  let visibleCount = 12;
+
+  function setTab(el, cat) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    currentCat = cat;
+    visibleCount = 12;
+    filterTests();
+    // URL 파라미터 업데이트
+    const url = new URL(window.location);
+    if (cat === 'all') url.searchParams.delete('cat');
+    else url.searchParams.set('cat', cat);
+    history.replaceState({}, '', url);
+  }
+
+  function filterTests() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    const sort = document.getElementById('sortSelect').value;
+    let list = TESTS.filter(t => {
+      const matchCat = currentCat === 'all' || t.cat === currentCat;
+      const matchQ   = !q || t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q);
+      return matchCat && matchQ;
+    });
+    if (sort === 'popular') list.sort((a,b) => b.participants - a.participants);
+    else if (sort === 'new') list.sort((a,b) => b.isNew - a.isNew);
+    else if (sort === 'fast') list.sort((a,b) => a.questions - b.questions);
+
+    document.getElementById('resultCount').textContent = `총 ${list.length}개의 테스트`;
+    const visible = list.slice(0, visibleCount);
+    document.getElementById('testGrid').innerHTML = visible.map(t => renderTestCard(t, t.isHot)).join('');
+    document.getElementById('loadMoreBtn').style.display =
+      visibleCount >= list.length ? 'none' : 'inline-flex';
+  }
+
+  function loadMore() {
+    visibleCount += 6;
+    filterTests();
+  }
+
+  // 페이지 로드 시 URL 파라미터 확인
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('cat');
+    if (cat) {
+      const btn = document.querySelector(`[data-cat="${cat}"]`);
+      if (btn) setTab(btn, cat);
+      else filterTests();
+    } else {
+      filterTests();
+    }
+  });
+</script>
+<nav class="mobile-bottom-nav">
+  <div class="mobile-bottom-nav-inner">
+    <a href="index.html"   class="mobile-nav-item">  <span class="nav-icon">🏠</span>홈</a>
+    <a href="tests.html"   class="mobile-nav-item active"> <span class="nav-icon">🧠</span>테스트</a>
+    <a href="saju.html"    class="mobile-nav-item">  <span class="nav-icon">🀄</span>사주</a>
+    <a href="astro.html"   class="mobile-nav-item"> <span class="nav-icon">⭐</span>별자리</a>
+    <a href="naming.html"  class="mobile-nav-item">  <span class="nav-icon">✨</span>작명</a>
+     <a href="pregnancy.html" class="mobile-nav-item"><span class="nav-icon">👶</span>임신운</a>
+  </div>
+</nav></body>
+</html>
+
+
+

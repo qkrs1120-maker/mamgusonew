@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>인간관계 사주 분석 — 마음연구소</title>
+  <meta name="description" content="상대방의 생년월일을 입력하고 사주 오행으로 관계를 분석해보세요. 직장 동료, 가족과의 관계 분석." />
+  <link rel="stylesheet" href="style.css" />
+  <script src="credits.js" defer></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2567294396988257" crossorigin="anonymous"></script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-405F4WEG03"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-405F4WEG03');</script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif; background: #0f0a1e; color: #F9FAFB; }
+
+    .rel-hero {
+      background: linear-gradient(160deg, #0f0a1e 0%, #1a0a3e 50%, #0a1a2e 100%);
+      padding: 60px 0 48px; text-align: center; position: relative; overflow: hidden;
+    }
+    .rel-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(108,71,255,0.18), transparent 60%);
+      pointer-events: none;
+    }
+    .rel-hero h1 { font-size: clamp(1.6rem,4vw,2.2rem); font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .rel-hero p { color: rgba(255,255,255,0.7); font-size: 1rem; max-width: 520px; margin: 0 auto; }
+
+    .rel-tabs { display: flex; gap: 12px; justify-content: center; padding: 28px 16px 0; }
+    .rel-tab {
+      padding: 10px 24px; border-radius: 50px; border: 2px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6);
+      font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .rel-tab.active { background: linear-gradient(135deg,#7C3AED,#4F46E5); border-color: transparent; color: #fff; }
+
+    .rel-container { max-width: 600px; margin: 0 auto; padding: 24px 16px 80px; }
+
+    .rel-form-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 28px 24px; margin-bottom: 24px;
+    }
+    .rel-form-card h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 18px; }
+
+    .person-block { margin-bottom: 20px; }
+    .person-block-title {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px;
+      padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group label { font-size: 0.78rem; color: rgba(255,255,255,0.5); font-weight: 600; }
+    .form-group input, .form-group select {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 10px 12px; color: #fff; font-size: 0.9rem;
+      outline: none; width: 100%; box-sizing: border-box;
+    }
+    .form-group input::placeholder { color: rgba(255,255,255,0.25); }
+    .form-group select option { background: #1a1a3e; color: #fff; }
+    .form-group input:focus, .form-group select:focus { border-color: #7C3AED; }
+
+    .saved-notice {
+      display: none; align-items: center; gap: 10px;
+      background: rgba(134,239,172,0.1); border: 1px solid rgba(134,239,172,0.3);
+      border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.85rem; color: #86EFAC;
+    }
+
+    .relation-type-select { margin-bottom: 18px; }
+    .relation-type-select label { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 8px; display: block; }
+    .relation-type-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+    .relation-type-btn {
+      padding: 8px 16px; border-radius: 50px; border: 1.5px solid rgba(255,255,255,0.15);
+      background: transparent; color: rgba(255,255,255,0.6); font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+    }
+    .relation-type-btn.active { background: rgba(124,58,237,0.3); border-color: #7C3AED; color: #C4B5FD; }
+
+    .btn-analyze {
+      width: 100%; padding: 16px; border-radius: 14px; border: none;
+      background: linear-gradient(135deg,#7C3AED,#4F46E5); color: #fff;
+      font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-analyze:hover { opacity: 0.9; }
+    .credit-notice {
+      text-align: center; font-size: 0.82rem; color: rgba(255,255,255,0.4); margin-top: 8px;
+    }
+
+    /* 결과 */
+    .result-section { display: none; animation: fadeUp 0.5s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    .result-header {
+      background: linear-gradient(135deg,rgba(124,58,237,0.3),rgba(79,70,229,0.2));
+      border: 1px solid rgba(124,58,237,0.3); border-radius: 20px;
+      padding: 28px 24px; text-align: center; margin-bottom: 20px;
+    }
+    .result-header .r-emoji { font-size: 3rem; margin-bottom: 12px; }
+    .result-header .r-title { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .result-header .r-score-wrap { display: flex; justify-content: center; gap: 24px; margin: 16px 0 0; flex-wrap: wrap; }
+    .result-header .r-score-item { text-align: center; }
+    .result-header .r-score-num { font-size: 2rem; font-weight: 900; color: #A78BFA; }
+    .result-header .r-score-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
+
+    .result-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; padding: 20px 22px; margin-bottom: 14px;
+    }
+    .result-card h4 { font-size: 0.9rem; font-weight: 700; color: #C4B5FD; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .result-card p { font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin: 0; }
+    .result-card .highlight { color: #FCD34D; font-weight: 700; }
+
+    .ohang-bars { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .ohang-bar-row { display: flex; align-items: center; gap: 10px; }
+    .ohang-bar-label { width: 60px; font-size: 0.82rem; color: rgba(255,255,255,0.7); }
+    .ohang-bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+    .ohang-bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+    .ohang-bar-pct { width: 36px; font-size: 0.8rem; color: rgba(255,255,255,0.5); text-align: right; }
+
+    .compat-meter { text-align: center; padding: 16px 0; }
+    .compat-score-big { font-size: 3.5rem; font-weight: 900; color: #A78BFA; }
+    .compat-score-label { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    .compat-gauge { width: 100%; height: 12px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; margin: 12px 0; }
+    .compat-gauge-fill { height: 100%; background: linear-gradient(90deg,#7C3AED,#EC4899); border-radius: 6px; transition: width 1.2s ease; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .tag { padding: 4px 12px; border-radius: 50px; font-size: 0.78rem; font-weight: 600; }
+    .tag-good { background: rgba(74,222,128,0.15); color: #4ADE80; border: 1px solid rgba(74,222,128,0.25); }
+    .tag-caution { background: rgba(251,191,36,0.15); color: #FBbf24; border: 1px solid rgba(251,191,36,0.25); }
+    .tag-bad { background: rgba(239,68,68,0.15); color: #EF4444; border: 1px solid rgba(239,68,68,0.25); }
+
+    .btn-share { width: 100%; padding: 14px; border-radius: 14px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-top: 8px; }
+    .btn-retry { width: 100%; padding: 14px; border-radius: 14px; background: transparent; border: 1.5px solid #7C3AED; color: #C4B5FD; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-top: 8px; }
+
+    .ad-slot { background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.08); border-radius: 12px; padding: 14px; text-align: center; color: rgba(255,255,255,0.2); font-size: 0.75rem; margin: 20px 0; min-height: 90px; display: flex; align-items: center; justify-content: center; }
+
+    .loading-wrap { text-align: center; padding: 48px 24px; }
+    .loading-wrap .spin { font-size: 2.5rem; animation: spin 1.5s linear infinite; display: inline-block; margin-bottom: 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-wrap p { color: rgba(255,255,255,0.6); font-size: 0.95rem; }
+
+    .credit-modal-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9000;align-items:center;justify-content:center; }
+    .credit-modal-overlay.open { display:flex; }
+    .credit-modal { background:#1a1a3e;border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:32px 28px;max-width:340px;width:90%;text-align:center; }
+
+    @media(max-width:480px) {
+      .form-row-3 { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="main-header" style="background:rgba(15,10,30,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);">
+  <div class="header-inner" style="max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:60px;">
+    <a href="index.html" class="logo" style="font-size:1.2rem;font-weight:900;color:#fff;text-decoration:none;">🌙 마음연구소</a>
+    <nav style="display:flex;gap:20px;align-items:center;">
+      <a href="tests.html" style="color:rgba(255,255,255,0.7);font-size:0.9rem;text-decoration:none;">테스트</a>
+      <a href="saju.html" style="color:rgba(255,255,255,0.7);font-size:0.9rem;text-decoration:none;">사주</a>
+      <a href="tests.html?cat=relation" style="color:#C4B5FD;font-size:0.9rem;font-weight:700;text-decoration:none;">인간관계</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 히어로 -->
+<div class="rel-hero">
+  <div style="position:relative;z-index:1;">
+    <div style="font-size:2.5rem;margin-bottom:12px;" id="heroEmoji">🏢</div>
+    <h1 id="heroTitle">인간관계 사주 분석</h1>
+    <p id="heroDesc">두 사람의 생년월일로 오행 에너지를 분석하고<br>관계의 강점과 개선 방향을 알아보세요</p>
+  </div>
+</div>
+
+<!-- 탭 -->
+<div class="rel-tabs">
+  <button class="rel-tab active" id="tabWorkplace" onclick="switchTab('workplace')">🏢 직장 동료 관계</button>
+  <button class="rel-tab" id="tabFamily" onclick="switchTab('family')">👨‍👩‍👧 가족 관계</button>
+</div>
+
+<div class="rel-container">
+
+  <!-- ===== 입력 폼 ===== -->
+  <div id="formSection">
+    <div class="rel-form-card">
+
+      <div class="saved-notice" id="savedNotice">
+        <span>✅</span>
+        <span><strong id="savedName"></strong>님의 정보가 자동으로 채워졌습니다.</span>
+        <button onclick="clearSavedInfo()" style="margin-left:auto;background:none;border:none;color:rgba(134,239,172,0.6);cursor:pointer;font-size:0.8rem;">초기화</button>
+      </div>
+
+      <!-- 관계 유형 (직장) -->
+      <div class="relation-type-select" id="workplaceTypeWrap">
+        <label>분석할 관계 유형</label>
+        <div class="relation-type-btns">
+          <button class="relation-type-btn active" data-rtype="coworker" onclick="selectRtype(this)">👥 일반 동료</button>
+          <button class="relation-type-btn" data-rtype="boss" onclick="selectRtype(this)">👆 상사</button>
+          <button class="relation-type-btn" data-rtype="subordinate" onclick="selectRtype(this)">👇 부하직원</button>
+          <button class="relation-type-btn" data-rtype="partner" onclick="selectRtype(this)">🤝 파트너</button>
+        </div>
+      </div>
+
+      <!-- 관계 유형 (가족) -->
+      <div class="relation-type-select" id="familyTypeWrap" style="display:none;">
+        <label>분석할 관계 유형</label>
+        <div class="relation-type-btns">
+          <button class="relation-type-btn active" data-rtype="parent" onclick="selectRtype(this)">👪 부모님</button>
+          <button class="relation-type-btn" data-rtype="child" onclick="selectRtype(this)">👶 자녀</button>
+          <button class="relation-type-btn" data-rtype="sibling" onclick="selectRtype(this)">👫 형제·자매</button>
+          <button class="relation-type-btn" data-rtype="spouse" onclick="selectRtype(this)">💑 배우자</button>
+        </div>
+      </div>
+
+      <!-- 나 -->
+      <div class="person-block">
+        <div class="person-block-title"><span>👤</span> 나의 정보</div>
+        <div class="form-row-2" style="margin-bottom:10px;">
+          <div class="form-group">
+            <label>이름</label>
+            <input type="text" id="myName" placeholder="홍길동" maxlength="6" />
+          </div>
+          <div class="form-group">
+            <label>성별</label>
+            <select id="myGender">
+              <option value="female">여성</option>
+              <option value="male">남성</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group">
+            <label>출생 년도</label>
+            <input type="number" id="myYear" placeholder="1995" min="1920" max="2025" />
+          </div>
+          <div class="form-group">
+            <label>출생 월</label>
+            <select id="myMonth">
+              <option value="">월</option>
+              <option value="1">1월</option><option value="2">2월</option><option value="3">3월</option>
+              <option value="4">4월</option><option value="5">5월</option><option value="6">6월</option>
+              <option value="7">7월</option><option value="8">8월</option><option value="9">9월</option>
+              <option value="10">10월</option><option value="11">11월</option><option value="12">12월</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>출생 일</label>
+            <input type="number" id="myDay" placeholder="15" min="1" max="31" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 상대방 -->
+      <div class="person-block">
+        <div class="person-block-title"><span id="targetEmoji">🏢</span> <span id="targetLabel">상대방 (직장 동료) 정보</span></div>
+        <div class="form-row-2" style="margin-bottom:10px;">
+          <div class="form-group">
+            <label>이름 (선택)</label>
+            <input type="text" id="theirName" placeholder="김철수" maxlength="6" />
+          </div>
+          <div class="form-group">
+            <label>성별</label>
+            <select id="theirGender">
+              <option value="female">여성</option>
+              <option value="male">남성</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group">
+            <label>출생 년도</label>
+            <input type="number" id="theirYear" placeholder="1990" min="1920" max="2025" />
+          </div>
+          <div class="form-group">
+            <label>출생 월</label>
+            <select id="theirMonth">
+              <option value="">월</option>
+              <option value="1">1월</option><option value="2">2월</option><option value="3">3월</option>
+              <option value="4">4월</option><option value="5">5월</option><option value="6">6월</option>
+              <option value="7">7월</option><option value="8">8월</option><option value="9">9월</option>
+              <option value="10">10월</option><option value="11">11월</option><option value="12">12월</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>출생 일</label>
+            <input type="number" id="theirDay" placeholder="3" min="1" max="31" />
+          </div>
+        </div>
+      </div>
+
+      <div id="formError" style="color:#FCA5A5;font-size:0.85rem;margin-bottom:10px;display:none;">⚠️ 나와 상대방의 생년월일을 모두 입력해주세요.</div>
+
+      <div style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:0.85rem;color:rgba(255,255,255,0.7);text-align:center;">
+        🪙 관계 분석 1회 = <strong style="color:#C4B5FD;">10 크레딧</strong> 소비 &nbsp;·&nbsp; 현재 <strong id="relCreditCount" style="color:#FCD34D;">-</strong>개 보유
+      </div>
+
+      <button class="btn-analyze" onclick="tryAnalyze()">
+        🔮 관계 분석 시작하기 <span style="font-size:0.82rem;opacity:0.75;">(10 크레딧)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== 로딩 ===== -->
+  <div id="loadingSection" style="display:none;">
+    <div class="loading-wrap">
+      <div class="spin">🔮</div>
+      <p id="loadingText">두 사람의 오행 에너지를 분석하는 중...</p>
+    </div>
+  </div>
+
+  <!-- ===== 결과 ===== -->
+  <div class="result-section" id="resultSection"></div>
+
+</div><!-- /rel-container -->
+
+<nav class="mobile-bottom-nav">
+  <div class="mobile-bottom-nav-inner">
+    <a href="index.html" class="mobile-nav-item"><span class="nav-icon">🏠</span>홈</a>
+    <a href="tests.html" class="mobile-nav-item"><span class="nav-icon">🧠</span>테스트</a>
+    <a href="saju.html" class="mobile-nav-item"><span class="nav-icon">🀄</span>사주</a>
+    <a href="astro.html" class="mobile-nav-item"><span class="nav-icon">⭐</span>별자리</a>
+    <a href="naming.html" class="mobile-nav-item"><span class="nav-icon">✨</span>작명</a>
+  </div>
+</nav>
+
+<div class="credit-modal-overlay" id="creditModalOverlay" onclick="if(event.target===this)closeCreditModal()">
+  <div class="credit-modal" id="creditModalBody"></div>
+</div>
+
+<script>
+/* ======================================================
+   오행 계산 유틸
+====================================================== */
+const HEAVENLY = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const EARTHLY   = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const STEM_ELEM  = ['木','木','火','火','土','土','金','金','水','水'];
+const BRANCH_ELEM= ['水','土','木','木','土','火','火','土','金','金','土','水'];
+const ELEM_NAMES = { '木':'목(木)','火':'화(火)','土':'토(土)','金':'금(金)','水':'수(水)' };
+const ELEM_COLORS= { '木':'#4ADE80','火':'#F87171','土':'#FBBF24','金':'#A78BFA','水':'#60A5FA' };
+
+function getOhang(year, month, day) {
+  const base = new Date(year, month - 1, day);
+  const dayOfWeek = base.getDay(); // unused but left for future
+  const stemIdx = year % 10;
+  const branchIdx = year % 12;
+  const monthStemIdx = (month + 2) % 10;
+  const monthBranchIdx = (month + 1) % 12;
+  const daySeed = Math.floor((year * 5 + month * 3 + day) % 10);
+  const dayBranchSeed = Math.floor((year * 3 + month * 7 + day) % 12);
+
+  const elems = [
+    STEM_ELEM[stemIdx],
+    BRANCH_ELEM[branchIdx],
+    STEM_ELEM[monthStemIdx],
+    BRANCH_ELEM[monthBranchIdx],
+    STEM_ELEM[daySeed],
+    BRANCH_ELEM[dayBranchSeed],
+  ];
+
+  const count = { '木':0, '火':0, '土':0, '金':0, '水':0 };
+  elems.forEach(e => count[e]++);
+  return count;
+}
+
+function ohangScore(count) {
+  const total = Object.values(count).reduce((a,b) => a+b, 0);
+  const pct = {};
+  Object.entries(count).forEach(([k,v]) => pct[k] = Math.round(v / total * 100));
+  return pct;
+}
+
+// 상생 관계: 木→火→土→金→水→木
+// 상극 관계: 木→土, 土→水, 水→火, 火→金, 金→木
+const GENERATE = { '木':'火','火':'土','土':'金','金':'水','水':'木' };
+const CONTROL  = { '木':'土','土':'水','水':'火','火':'金','金':'木' };
+
+function calcRelationScore(ohang1, ohang2) {
+  const dom1 = Object.entries(ohang1).sort((a,b) => b[1]-a[1])[0][0];
+  const dom2 = Object.entries(ohang2).sort((a,b) => b[1]-a[1])[0][0];
+
+  let score = 50;
+  if (GENERATE[dom1] === dom2 || GENERATE[dom2] === dom1) score += 25;
+  if (CONTROL[dom1] === dom2 || CONTROL[dom2] === dom1) score -= 20;
+  if (dom1 === dom2) score += 10;
+
+  // 보완성: 한쪽에 부족한 오행이 다른 쪽에 있으면 +
+  Object.keys(ohang1).forEach(e => {
+    if (ohang1[e] === 0 && ohang2[e] >= 2) score += 5;
+    if (ohang2[e] === 0 && ohang1[e] >= 2) score += 5;
+  });
+
+  return Math.min(98, Math.max(28, score));
+}
+
+/* ======================================================
+   결과 텍스트 생성
+====================================================== */
+const WORK_PROFILES = {
+  coworker: {
+    label: '동료 관계', emoji: '👥',
+    good: ['협업 시너지가 높아요','서로의 약점을 보완해줘요','같이 있으면 아이디어가 샘솟아요'],
+    bad:  ['의견 충돌이 잦을 수 있어요','일 처리 속도 차이가 스트레스일 수 있어요','서로 다른 접근 방식으로 마찰'],
+    tips: ['정기적인 1:1 대화를 나눠보세요','서로 다른 강점을 인정하고 역할을 나누세요','갈등이 생기면 바로 이야기하는 문화를 만드세요'],
+  },
+  boss: {
+    label: '상사 관계', emoji: '👆',
+    good: ['상사의 판단력을 잘 따라갈 수 있어요','지시를 직관적으로 이해해요','인정받을 가능성이 높아요'],
+    bad:  ['기대치가 높아 부담될 수 있어요','스타일 차이로 오해가 생길 수 있어요','표현 방식 차이로 커뮤니케이션 어려움'],
+    tips: ['상사의 업무 스타일을 파악하고 맞춰가세요','성과로 신뢰를 쌓으세요','부담은 적절히 표현하되 솔직하게 소통하세요'],
+  },
+  subordinate: {
+    label: '부하 관계', emoji: '👇',
+    good: ['내 스타일에 잘 따라와요','성장 잠재력이 높은 관계예요','동기부여가 잘 돼요'],
+    bad:  ['너무 다른 가치관으로 마찰 가능','지시 전달에 오해가 생길 수 있어요','기대와 다른 결과물에 실망할 수 있어요'],
+    tips: ['명확하고 구체적인 목표를 전달하세요','잘한 점을 빠르게 칭찬해 주세요','차이를 존중하고 성장의 기회로 여기세요'],
+  },
+  partner: {
+    label: '파트너 관계', emoji: '🤝',
+    good: ['방향이 잘 맞아서 추진력이 생겨요','서로 신뢰할 수 있는 기반이 있어요','공동 목표를 잘 달성해요'],
+    bad:  ['이해 충돌 시 갈등이 깊어질 수 있어요','역할 경계가 불분명해질 수 있어요','서로 너무 다른 페이스'],
+    tips: ['역할과 책임을 처음부터 명확히 나누세요','정기적으로 진행 상황을 공유하세요','이견은 빠르게 테이블 위에 올리세요'],
+  },
+};
+
+const FAMILY_PROFILES = {
+  parent: {
+    label: '부모 관계', emoji: '👪',
+    good: ['깊은 이해와 유대감이 형성돼요','어려울 때 든든한 버팀목이 돼요','자연스럽게 서로 배우게 돼요'],
+    bad:  ['세대 차이로 갈등이 생길 수 있어요','기대와 현실 차이로 상처받을 수 있어요','독립에 대한 마찰이 있을 수 있어요'],
+    tips: ['부모님의 걱정은 사랑이라는 걸 기억하세요','솔직한 대화로 기대치를 맞춰나가세요','작은 것부터 인정받는 경험을 쌓으세요'],
+  },
+  child: {
+    label: '자녀 관계', emoji: '👶',
+    good: ['자녀에게 강한 안정감을 줄 수 있어요','서로 성장하는 관계예요','정서적 유대가 깊어요'],
+    bad:  ['자녀 독립 시 섭섭함이 클 수 있어요','기대가 너무 높아 압박이 될 수 있어요','다른 오행으로 가치관 충돌 가능'],
+    tips: ['자녀의 자율성을 존중하고 기다려주세요','있는 그대로의 자녀를 칭찬하세요','함께하는 경험을 꾸준히 만들어가세요'],
+  },
+  sibling: {
+    label: '형제·자매 관계', emoji: '👫',
+    good: ['오랜 이해로 편안한 관계예요','어려울 때 먼저 손 내밀어줄 수 있어요','같은 뿌리를 가진 든든한 존재예요'],
+    bad:  ['경쟁심이나 비교로 상처받을 수 있어요','성인 후 생활 방식 차이로 멀어질 수 있어요','가족이라는 이름으로 경계가 흐릿해질 수 있어요'],
+    tips: ['비교하지 말고 각자의 길을 응원해주세요','자주 연락하고 소소한 일상을 공유하세요','갈등은 가족이기 때문에 더 빨리 해결할 수 있어요'],
+  },
+  spouse: {
+    label: '배우자 관계', emoji: '💑',
+    good: ['깊은 교감과 신뢰가 형성될 수 있어요','서로 오행이 보완되어 균형이 잡혀요','함께 성장하는 힘이 강해요'],
+    bad:  ['성격 차이로 일상 습관 마찰','감정 표현 방식이 달라 오해 가능','에너지 차이로 피로감 축적'],
+    tips: ['매일 작은 것에 감사를 표현하세요','싸웠을 때 해결보다 이해를 먼저 구하세요','공통의 취미나 목표를 함께 만들어가세요'],
+  },
+};
+
+function getProfile(tab, rtype) {
+  return tab === 'workplace' ? (WORK_PROFILES[rtype] || WORK_PROFILES.coworker)
+                             : (FAMILY_PROFILES[rtype] || FAMILY_PROFILES.parent);
+}
+
+function elemAdvice(ohang1, ohang2) {
+  const dom1 = Object.entries(ohang1).sort((a,b) => b[1]-a[1])[0][0];
+  const dom2 = Object.entries(ohang2).sort((a,b) => b[1]-a[1])[0][0];
+  const advices = {
+    '木木': '두 사람 모두 木 기운이 강해 창의성과 성장 에너지가 넘쳐요. 방향만 잘 맞추면 엄청난 시너지!',
+    '木火': '木이 火를 키워주는 상생 관계! 한쪽의 아이디어가 다른 쪽의 열정에 불을 지펴요.',
+    '木土': '木이 土를 통제하는 관계. 의견 차이가 자주 생길 수 있으나, 서로 배울 점이 많아요.',
+    '木金': '金이 木을 통제하는 관계. 마찰이 있을 수 있지만, 서로의 날카로움이 성장을 만들어요.',
+    '木水': '水가 木을 키워주는 상생! 한쪽이 조용히 다른 쪽을 지지하며 성장을 돕는 관계예요.',
+    '火火': '두 사람 모두 열정적! 에너지가 넘치지만, 과열되지 않도록 서로 조절이 필요해요.',
+    '火土': '火가 土를 만들어주는 상생. 한쪽의 열정이 다른 쪽에게 안정감을 줄 수 있어요.',
+    '火金': '火가 金을 통제하는 관계. 충돌이 있을 수 있으나 서로를 단련시키는 관계예요.',
+    '火水': '水가 火를 통제. 감정적 충돌이 있을 수 있지만, 균형을 이루면 매우 강한 조합이에요.',
+    '土土': '두 사람 모두 안정 지향. 신뢰가 두텁고 오래가는 관계를 만들어요.',
+    '土金': '土가 金을 생하는 상생. 한쪽이 든든한 토대를 제공하고 다른 쪽이 성과를 냅니다.',
+    '土水': '土가 水를 통제. 서로 다른 방향성으로 마찰이 있지만, 안정과 유연성의 균형을 배울 수 있어요.',
+    '金金': '두 사람 모두 결단력이 강해요. 명확한 역할 분담이 중요한 관계예요.',
+    '金水': '金이 水를 생하는 상생. 한쪽의 결단력이 다른 쪽의 유연한 흐름을 만들어요.',
+    '水水': '두 사람 모두 지혜롭고 유연해요. 서로의 깊이를 이해하며 천천히 신뢰를 쌓아요.',
+  };
+  const key = dom1 + dom2;
+  const rkey = dom2 + dom1;
+  return advices[key] || advices[rkey] || '두 사람의 오행 조합이 독특해요. 서로의 차이를 강점으로 바꾸면 최고의 파트너가 될 수 있어요!';
+}
+
+/* ======================================================
+   UI 상태 관리
+====================================================== */
+let currentTab = 'workplace';
+let currentRtype = 'coworker';
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('tabWorkplace').classList.toggle('active', tab === 'workplace');
+  document.getElementById('tabFamily').classList.toggle('active', tab === 'family');
+  document.getElementById('workplaceTypeWrap').style.display = tab === 'workplace' ? '' : 'none';
+  document.getElementById('familyTypeWrap').style.display    = tab === 'family'    ? '' : 'none';
+  currentRtype = tab === 'workplace' ? 'coworker' : 'parent';
+  document.querySelectorAll('.relation-type-btn').forEach(b => b.classList.remove('active'));
+  if (tab === 'workplace') {
+    document.getElementById('workplaceTypeWrap').querySelectorAll('.relation-type-btn')[0]?.classList.add('active');
+    document.getElementById('targetLabel').textContent = '상대방 (직장 동료) 정보';
+    document.getElementById('targetEmoji').textContent = '🏢';
+    document.getElementById('heroEmoji').textContent = '🏢';
+    document.getElementById('heroTitle').textContent = '직장 동료 관계 사주 분석';
+    document.getElementById('heroDesc').textContent = '동료, 상사, 부하직원과의 오행 관계를 분석해드려요';
+  } else {
+    document.getElementById('familyTypeWrap').querySelectorAll('.relation-type-btn')[0]?.classList.add('active');
+    document.getElementById('targetLabel').textContent = '상대방 (가족) 정보';
+    document.getElementById('targetEmoji').textContent = '👨‍👩‍👧';
+    document.getElementById('heroEmoji').textContent = '👨‍👩‍👧';
+    document.getElementById('heroTitle').textContent = '가족 관계 사주 분석';
+    document.getElementById('heroDesc').textContent = '가족 간의 오행 에너지 흐름으로 관계를 분석해드려요';
+  }
+  // 결과 초기화
+  document.getElementById('resultSection').style.display = 'none';
+  document.getElementById('formSection').style.display = '';
+}
+
+function selectRtype(btn) {
+  const wrap = btn.closest('.relation-type-btns');
+  wrap.querySelectorAll('.relation-type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentRtype = btn.dataset.rtype;
+}
+
+/* ======================================================
+   저장 정보 불러오기
+====================================================== */
+function loadSaved() {
+  try {
+    const info = JSON.parse(localStorage.getItem('maullab_user_info') || 'null');
+    if (!info) return;
+    if (document.getElementById('myName'))   document.getElementById('myName').value   = info.name || '';
+    if (document.getElementById('myGender')) document.getElementById('myGender').value = info.gender || 'female';
+    if (document.getElementById('myYear'))   document.getElementById('myYear').value   = info.year || '';
+    if (document.getElementById('myMonth'))  document.getElementById('myMonth').value  = info.month || '';
+    if (document.getElementById('myDay'))    document.getElementById('myDay').value    = info.day || '';
+    if (info.name) {
+      document.getElementById('savedNotice').style.display = 'flex';
+      document.getElementById('savedName').textContent = info.name;
+    }
+  } catch(e) {}
+}
+
+function clearSavedInfo() {
+  localStorage.removeItem('maullab_user_info');
+  document.getElementById('savedNotice').style.display = 'none';
+}
+
+/* ======================================================
+   크레딧 체크 & 분석 실행
+====================================================== */
+function tryAnalyze() {
+  const myY = +document.getElementById('myYear').value;
+  const myM = +document.getElementById('myMonth').value;
+  const myD = +document.getElementById('myDay').value;
+  const thY = +document.getElementById('theirYear').value;
+  const thM = +document.getElementById('theirMonth').value;
+  const thD = +document.getElementById('theirDay').value;
+
+  if (!myY || !myM || !myD || !thY || !thM || !thD) {
+    document.getElementById('formError').style.display = 'block';
+    return;
+  }
+  document.getElementById('formError').style.display = 'none';
+
+  if (getCredits() < 10) {
+    document.getElementById('creditModalOverlay').classList.add('open');
+    document.getElementById('creditModalBody').innerHTML = `
+      <div style="text-align:center;padding:8px;">
+        <div style="font-size:2.5rem;margin-bottom:12px;">😢</div>
+        <h3 style="color:#fff;margin-bottom:8px;">크레딧이 부족해요</h3>
+        <div style="font-size:1.8rem;font-weight:900;color:#EF4444;margin-bottom:8px;">${getCredits()}<span style="font-size:1rem;">개</span></div>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.88rem;margin-bottom:20px;">관계 분석은 <strong style="color:#C4B5FD;">10 크레딧</strong>이 필요해요.<br>공유하면 +10 크레딧 즉시 지급!</p>
+        <button onclick="doShare('마음연구소 인간관계 사주 분석! 직장동료·가족과의 관계를 사주로 알아보세요 🔮');closeCreditModal();" style="width:100%;padding:12px;background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;border:none;border-radius:12px;font-size:0.95rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔗 공유하고 +10 크레딧 받기</button>
+        <button onclick="closeCreditModal()" style="width:100%;padding:10px;background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);border-radius:12px;font-size:0.9rem;cursor:pointer;">닫기</button>
+      </div>`;
+    return;
+  }
+
+  setCredits(getCredits() - 10);
+  refreshAllCreditBadges();
+  document.getElementById('relCreditCount').textContent = getCredits();
+
+  // 내 정보 저장 (자동저장)
+  const myName = document.getElementById('myName').value;
+  const myGender = document.getElementById('myGender').value;
+  if (myName && myY) {
+    localStorage.setItem('maullab_user_info', JSON.stringify({
+      name: myName, gender: myGender,
+      year: myY, month: myM, day: myD, hour: '99'
+    }));
+  }
+
+  doAnalyze(myY, myM, myD, thY, thM, thD);
+}
+
+function doAnalyze(myY, myM, myD, thY, thM, thD) {
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('loadingSection').style.display = '';
+
+  const msgs = [
+    '두 사람의 오행 에너지를 계산하는 중...',
+    '상생·상극 관계를 분석하는 중...',
+    '맞춤 조언을 생성하는 중...',
+  ];
+  let mi = 0;
+  const int = setInterval(() => {
+    mi = (mi + 1) % msgs.length;
+    const el = document.getElementById('loadingText');
+    if (el) el.textContent = msgs[mi];
+  }, 600);
+
+  setTimeout(() => {
+    clearInterval(int);
+    document.getElementById('loadingSection').style.display = 'none';
+
+    const ohang1 = getOhang(myY, myM, myD);
+    const ohang2 = getOhang(thY, thM, thD);
+    const pct1   = ohangScore(ohang1);
+    const pct2   = ohangScore(ohang2);
+    const score  = calcRelationScore(ohang1, ohang2);
+    const profile = getProfile(currentTab, currentRtype);
+    const advice  = elemAdvice(ohang1, ohang2);
+
+    const dom1  = Object.entries(ohang1).sort((a,b) => b[1]-a[1])[0][0];
+    const dom2  = Object.entries(ohang2).sort((a,b) => b[1]-a[1])[0][0];
+    const myN   = document.getElementById('myName').value || '나';
+    const thN   = document.getElementById('theirName').value || '상대방';
+
+    const scoreLabel = score >= 80 ? '환상의 관계 ✨' : score >= 65 ? '궁합이 좋아요 👍' : score >= 50 ? '무난한 관계 🙂' : '노력이 필요해요 💪';
+    const goodIdx = Math.abs(myY + myD) % profile.good.length;
+    const badIdx  = Math.abs(thY + thD) % profile.bad.length;
+    const tipIdx  = Math.abs(myM + thM) % profile.tips.length;
+
+    const html = `
+      <div class="result-header">
+        <div class="r-emoji">${profile.emoji}</div>
+        <div class="r-title">${myN} × ${thN}<br><span style="font-size:1rem;font-weight:600;color:#C4B5FD;">${profile.label}</span></div>
+        <div class="compat-meter">
+          <div class="compat-score-big">${score}<span style="font-size:1.5rem;">점</span></div>
+          <div class="compat-score-label">${scoreLabel}</div>
+          <div class="compat-gauge"><div class="compat-gauge-fill" id="gaugeBar" style="width:0%;"></div></div>
+        </div>
+        <div class="r-score-wrap">
+          <div class="r-score-item">
+            <div class="r-score-num" style="color:${ELEM_COLORS[dom1]};">${ELEM_NAMES[dom1]}</div>
+            <div class="r-score-label">${myN}의 주 오행</div>
+          </div>
+          <div class="r-score-item" style="font-size:1.5rem;color:rgba(255,255,255,0.3);align-self:center;">↔</div>
+          <div class="r-score-item">
+            <div class="r-score-num" style="color:${ELEM_COLORS[dom2]};">${ELEM_NAMES[dom2]}</div>
+            <div class="r-score-label">${thN}의 주 오행</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 오행 분석 -->
+      <div class="result-card">
+        <h4>🌿 오행 에너지 비교</h4>
+        <p style="margin-bottom:12px;">두 사람의 오행 에너지 분포예요. 서로 다른 에너지가 어떻게 조화를 이루는지 확인하세요.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-bottom:8px;font-weight:700;">👤 ${myN}</div>
+            <div class="ohang-bars">
+              ${Object.entries(pct1).map(([e,p]) => `
+                <div class="ohang-bar-row">
+                  <div class="ohang-bar-label">${ELEM_NAMES[e].split('(')[0]}</div>
+                  <div class="ohang-bar-track"><div class="ohang-bar-fill" style="width:${p}%;background:${ELEM_COLORS[e]};"></div></div>
+                  <div class="ohang-bar-pct">${p}%</div>
+                </div>`).join('')}
+            </div>
+          </div>
+          <div>
+            <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-bottom:8px;font-weight:700;">👤 ${thN}</div>
+            <div class="ohang-bars">
+              ${Object.entries(pct2).map(([e,p]) => `
+                <div class="ohang-bar-row">
+                  <div class="ohang-bar-label">${ELEM_NAMES[e].split('(')[0]}</div>
+                  <div class="ohang-bar-track"><div class="ohang-bar-fill" style="width:${p}%;background:${ELEM_COLORS[e]};"></div></div>
+                  <div class="ohang-bar-pct">${p}%</div>
+                </div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 관계 해석 -->
+      <div class="result-card">
+        <h4>🔮 오행으로 보는 관계 해석</h4>
+        <p>${advice}</p>
+      </div>
+
+      <!-- 광고 -->
+      <div class="ad-slot">
+        <ins class="adsbygoogle" style="display:block;width:100%;min-height:90px;" data-ad-client="ca-pub-2567294396988257" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      </div>
+
+      <!-- 잘 맞는 점 -->
+      <div class="result-card">
+        <h4>✅ 잘 맞는 점</h4>
+        <p>✨ <span class="highlight">${profile.good[goodIdx]}</span></p>
+        <div class="tag-list" style="margin-top:10px;">
+          ${profile.good.map(g => `<span class="tag tag-good">${g}</span>`).join('')}
+        </div>
+      </div>
+
+      <!-- 주의할 점 -->
+      <div class="result-card">
+        <h4>⚠️ 주의할 점</h4>
+        <p>${profile.bad[badIdx]}</p>
+        <div class="tag-list" style="margin-top:10px;">
+          ${profile.bad.map(b => `<span class="tag tag-caution">${b}</span>`).join('')}
+        </div>
+      </div>
+
+      <!-- 관계 개선 조언 -->
+      <div class="result-card" style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(79,70,229,0.1));border-color:rgba(124,58,237,0.3);">
+        <h4>💡 관계 개선 조언</h4>
+        <p style="color:#E0D7FF;">${profile.tips[tipIdx]}</p>
+        <p style="margin-top:10px;color:#E0D7FF;">${profile.tips[(tipIdx+1)%profile.tips.length]}</p>
+      </div>
+
+      <!-- 버튼 -->
+      <button class="btn-share" onclick="doShare('${myN}와 ${thN}의 사주 관계 분석! 두 사람의 오행 궁합 점수는 ${score}점 🔮')">🔗 결과 공유하고 +10 크레딧 받기</button>
+      <button class="btn-retry" onclick="resetForm()">🔄 다시 분석하기</button>
+    `;
+
+    const rs = document.getElementById('resultSection');
+    rs.innerHTML = html;
+    rs.style.display = 'block';
+    rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // 게이지 애니메이션
+    setTimeout(() => {
+      const bar = document.getElementById('gaugeBar');
+      if (bar) bar.style.width = score + '%';
+    }, 100);
+
+    // 광고 초기화
+    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+  }, 2000);
+}
+
+function resetForm() {
+  document.getElementById('resultSection').style.display = 'none';
+  document.getElementById('formSection').style.display = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ======================================================
+   초기화
+====================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.getElementById('relCreditCount');
+  if (el) el.textContent = getCredits();
+  loadSaved();
+
+  // URL 파라미터로 탭 선택
+  const params = new URLSearchParams(location.search);
+  const type = params.get('type');
+  if (type === 'family') switchTab('family');
+
+  // 내 정보 변경 시 자동저장
+  ['myName','myGender','myYear','myMonth','myDay'].forEach(id => {
+    document.getElementById(id)?.addEventListener('change', () => {
+      const name = document.getElementById('myName').value;
+      const year = document.getElementById('myYear').value;
+      if (name && year) {
+        localStorage.setItem('maullab_user_info', JSON.stringify({
+          name, gender: document.getElementById('myGender').value,
+          year, month: document.getElementById('myMonth').value,
+          day: document.getElementById('myDay').value, hour: '99'
+        }));
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

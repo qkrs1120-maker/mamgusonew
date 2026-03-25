@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>마음연구소 — 나를 가장 잘 아는 심리 테스트</title>
+  <meta name="description" content="MBTI, 별자리, 사주, 연애 심리까지. 정확하고 재미있는 무료 심리 테스트로 진짜 나를 발견하세요." />
+  <link rel="stylesheet" href="style.css" />
+  <script src="credits.js" defer></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2567294396988257"
+     crossorigin="anonymous"></script>
+  <style>body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }</style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-405F4WEG03"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-405F4WEG03');
+  </script></head>
+<body>
+
+<div class="top-ad-bar" id="topAdBar">
+  이번 주 인기 →
+  <a href="test.html?id=miss-me">그 사람이 나를 그리워할까? 테스트 하러가기</a>
+  <button onclick="document.getElementById('topAdBar').remove()" style="color:white;margin-left:16px;opacity:0.8;">✕</button>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🧠</div>
+      <span class="text-gradient">마음연구소</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" class="active">홈</a>
+      <a href="tests.html">테스트</a>
+      <a href="saju.html">🀄 사주</a>
+      <a href="astro.html">⭐ 별자리</a>
+      <a href="naming.html">✨ 작명</a>
+      <a href="pregnancy.html">👶 임신운</a>
+      <a href="community.html">💬 커뮤니티</a>
+    </nav>
+    <a href="tests.html" class="header-cta">테스트 시작 →</a>
+    <div class="credit-badge-wrap" onclick="openCreditModal()">
+      <span class="credit-coin">🪙</span>
+      <span class="credit-badge-count">100</span>
+      <span class="credit-badge-label">크레딧</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="fade-up">
+        <div class="hero-eyebrow">
+          <span class="live-dot"></span>
+          지금 3,412명이 테스트 중
+        </div>
+        <h1>나를 가장 잘 아는<br><span class="text-gradient">심리 탐험</span></h1>
+        <p>MBTI, 연애 유형, 별자리, 사주까지.<br>과학적 분석 기반의 무료 심리 테스트로<br>내 안의 진짜 모습을 발견하세요.</p>
+        <div class="hero-btns">
+          <a href="tests.html" class="btn btn-primary btn-lg pulse">무료 테스트 시작하기 →</a>
+          <a href="saju.html" class="btn btn-outline btn-lg">🀄 무료 사주 한 번에 보기</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num">120만+</div>
+            <div class="hero-stat-label">누적 참여자</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">56종</div>
+            <div class="hero-stat-label">무료 테스트</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">4.9★</div>
+            <div class="hero-stat-label">이용자 평점</div>
+          </div>
+        </div>
+        <!-- 크레딧 안내 + 공유 -->
+        <div class="share-credit-box" style="margin-top:24px;">
+          <div class="scb-text">
+            <div class="scb-title">🪙 지금 크레딧 <strong>100개</strong> 무료 지급!</div>
+            <div class="scb-sub">테스트 1회 = 10크레딧 · 링크 공유하면 <strong>+10 크레딧</strong> 보상</div>
+          </div>
+          <button class="share-credit-btn" onclick="doShare('마음연구소에서 심리 테스트를 해봤어요! 재미있는 심리·사주·별자리 테스트가 가득해요 🧠')">
+            🔗 공유하기
+            <span class="share-credit-badge">+10</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-up-2">
+        <div class="hero-float-tag hft-1">✅ 정확도 98%</div>
+        <div class="hero-float-tag hft-2">🔥 이번 주 67,812명</div>
+        <div class="hero-float-tag hft-3">⚡ 결과 즉시 확인</div>
+        <div class="hero-float-tag hft-4">💯 완전 무료</div>
+        <div class="hero-card-main">
+          <span class="card-emoji">🔮</span>
+          <h3>MBTI 정밀 테스트</h3>
+          <p>60문항 · 약 12분</p>
+          <div style="margin-top:14px;background:rgba(255,255,255,0.18);border-radius:8px;padding:10px;">
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.9);margin-bottom:7px;font-weight:700;">지금 인기 유형</div>
+            <div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;">
+              <span style="background:rgba(255,255,255,0.22);padding:2px 10px;border-radius:6px;font-size:0.78rem;font-weight:800;color:white;">INFP</span>
+              <span style="background:rgba(255,255,255,0.22);padding:2px 10px;border-radius:6px;font-size:0.78rem;font-weight:800;color:white;">ENFJ</span>
+              <span style="background:rgba(255,255,255,0.22);padding:2px 10px;border-radius:6px;font-size:0.78rem;font-weight:800;color:white;">INTJ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 상단 광고 -->
+<div class="ad-container container">
+  <div class="ad-banner ad-banner-728" style="max-width:728px;margin:0 auto;">Google AdSense 리더보드 (728×90)</div>
+</div>
+
+<!-- 인기 테스트 -->
+<section class="section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-eyebrow">🔥 이번 주 HOT</div>
+      <h2>지금 가장 많이 하는 테스트</h2>
+      <p>다들 이미 해봤다는 바로 그 테스트</p>
+    </div>
+    <div class="grid-3" id="hotTests"></div>
+    <div style="text-align:center;margin-top:36px;">
+      <a href="tests.html" class="btn btn-outline">전체 테스트 보기 (56종) →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 카테고리 -->
+<section class="section-sm" style="background:linear-gradient(160deg,#F5F3FF,#F0F9FF);">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-eyebrow">카테고리</div>
+      <h2>어떤 테스트가 궁금하세요?</h2>
+    </div>
+    <div class="grid-4" id="categoryGrid"></div>
+  </div>
+</section>
+
+<!-- 중간 광고 -->
+<div class="ad-container container">
+  <div class="ad-banner ad-banner-728" style="max-width:728px;margin:0 auto;">Google AdSense 인-아티클 (728×90)</div>
+</div>
+
+<!-- 신규 테스트 -->
+<section class="section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-eyebrow">✨ 신규 오픈</div>
+      <h2>새로 추가된 테스트</h2>
+      <p>이번 달 업데이트된 따끈따끈한 테스트들</p>
+    </div>
+    <div class="grid-3" id="newTests"></div>
+  </div>
+</section>
+
+<!-- 작명 서비스 배너 -->
+<section class="section-sm">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-eyebrow">🆕 신규 서비스</div>
+      <h2>입력하면 바로 나오는 분석 서비스</h2>
+      <p>퀴즈 없이, 생년월일만 입력하면 즉시 분석해드려요</p>
+    </div>
+    <div class="grid-3" style="margin-top:8px;">
+      <a href="saju.html" class="card" style="text-decoration:none;color:inherit;">
+        <div style="background:linear-gradient(135deg,#0f0a1e,#1a0a3e);padding:28px 24px;text-align:center;">
+          <div style="font-size:48px;margin-bottom:12px;">🀄</div>
+          <h3 style="color:white;margin-bottom:6px;">사주 분석 · 궁합</h3>
+          <p style="color:rgba(255,255,255,0.7);font-size:0.82rem;">오행·대운·초중말년 운세<br>+ 사주 궁합까지</p>
+        </div>
+        <div class="card-body" style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="badge badge-purple">무료</span>
+          <span style="font-size:0.85rem;font-weight:700;color:var(--primary);">분석하기 →</span>
+        </div>
+      </a>
+      <a href="astro.html" class="card" style="text-decoration:none;color:inherit;">
+        <div style="background:linear-gradient(135deg,#0d0d2b,#1a1040);padding:28px 24px;text-align:center;">
+          <div style="font-size:48px;margin-bottom:12px;">⭐</div>
+          <h3 style="color:white;margin-bottom:6px;">별자리 분석 · 궁합</h3>
+          <p style="color:rgba(255,255,255,0.7);font-size:0.82rem;">성격·연애·월별운세<br>+ 별자리 궁합까지</p>
+        </div>
+        <div class="card-body" style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="badge badge-purple">무료</span>
+          <span style="font-size:0.85rem;font-weight:700;color:var(--primary);">분석하기 →</span>
+        </div>
+      </a>
+      <a href="naming.html" class="card" style="text-decoration:none;color:inherit;">
+        <div style="background:linear-gradient(135deg,#F5F3FF,#FDF4FF);padding:28px 24px;text-align:center;">
+          <div style="font-size:48px;margin-bottom:12px;">✨</div>
+          <h3 style="margin-bottom:6px;">사주 작명</h3>
+          <p style="font-size:0.82rem;">오행 기반 한자 이름 추천<br>획수·뜻 상세 설명</p>
+        </div>
+        <div class="card-body" style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="badge badge-green">무료 2개</span>
+          <span style="font-size:0.85rem;font-weight:700;color:var(--primary);">작명하기 →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 후기 -->
+<section class="section-sm" style="background:#F9FAFB;border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-eyebrow">이용자 후기</div>
+      <h2>실제 이용자들의 반응</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card review-card fade-up">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"MBTI 결과가 소름 돋을 정도로 정확했어요. 친구들이 다 공유하더니 이제 제가 먼저 추천하게 됐어요."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:var(--gradient);">김</div>
+          <div><div class="review-name">김지원</div><div class="review-sub">INFP · 대학생</div></div>
+        </div>
+      </div>
+      <div class="card review-card fade-up-2">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"그 사람이 나를 그리워할까 테스트... 결과 보고 많이 생각했어요. 생각보다 진지하게 분석해줘서 놀랐어요."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#F472B6,#F59E0B);">이</div>
+          <div><div class="review-name">이민준</div><div class="review-sub">ENFJ · 직장인</div></div>
+        </div>
+      </div>
+      <div class="card review-card fade-up-3">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"사주 오행 테스트 너무 잘 맞아요. 직장 동료 관계도 분석해줘서 실제로 도움이 많이 됐습니다."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#6C47FF,#3B82F6);">박</div>
+          <div><div class="review-name">박서연</div><div class="review-sub">INTJ · 직장인</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="container">
+    <div class="ad-banner ad-banner-728" style="max-width:728px;margin:0 auto 56px;"></div>
+    <div class="cta-section">
+      <div class="cta-bg-circle" style="width:300px;height:300px;top:-100px;right:-60px;"></div>
+      <div class="cta-bg-circle" style="width:200px;height:200px;bottom:-80px;left:-40px;"></div>
+      <h2>나를 아는 것이<br>모든 것의 시작입니다</h2>
+      <p>5분이면 충분합니다. 지금 바로 시작해보세요.</p>
+      <a href="tests.html" class="btn btn-lg">지금 바로 시작하기 (무료) →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><div class="logo-icon">🧠</div><span>마음연구소</span></div>
+        <p>과학적 심리학 기반의 무료 성격·유형 테스트 플랫폼.<br>MBTI, 연애 심리, 별자리, 사주까지.</p>
+        <p class="footer-disclaimer">※ 본 서비스의 테스트는 오락 및 자기 이해 목적으로 제공되며 임상적 진단을 대체하지 않습니다. 이 페이지에는 광고 및 제휴 마케팅 링크가 포함될 수 있습니다.</p>
+      </div>
+      <div>
+        <h4>테스트</h4>
+        <ul>
+          <li><a href="tests.html?cat=mbti">MBTI</a></li>
+          <li><a href="tests.html?cat=love">연애 심리</a></li>
+          <li><a href="tests.html?cat=astro">별자리·점성술</a></li>
+          <li><a href="tests.html?cat=saju">사주·운세</a></li>
+          <li><a href="tests.html?cat=career">직업 적성</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>콘텐츠</h4>
+        <ul>
+          <li><a href="#">MBTI 완전 정복</a></li>
+          <li><a href="#">유형별 연애 가이드</a></li>
+          <li><a href="#">별자리 성격 분석</a></li>
+          <li><a href="#">오행 기질 가이드</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>서비스</h4>
+        <ul>
+          <li><a href="#">광고 문의</a></li>
+          <li><a href="#">제휴 문의</a></li>
+          <li><a href="privacy.html">개인정보 처리방침</a></li>
+          <li><a href="terms.html">이용약관</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 마음연구소. All rights reserved.</span>
+      <span>contact@maeum-lab.kr</span>
+    </div>
+  </div>
+</footer>
+
+<div class="float-ad" id="floatAd">
+  <button class="float-ad-close" onclick="document.getElementById('floatAd').remove()">✕</button>
+  <div class="float-ad-inner">Google AdSense 플로팅 광고</div>
+</div>
+
+<script src="quiz-data.js"></script>
+<script>
+  const hotIds = ['mbti-full', 'miss-me', 'tarot-today'];
+  document.getElementById('hotTests').innerHTML =
+    hotIds.map(id => renderTestCard(TESTS.find(t => t.id === id), true)).join('');
+
+  const newIds = ['workplace-relation', 'family-future', 'today-fortune'];
+  document.getElementById('newTests').innerHTML =
+    newIds.map(id => renderTestCard(TESTS.find(t => t.id === id), false)).join('');
+
+  document.getElementById('categoryGrid').innerHTML = CATEGORIES.map(cat => `
+    <a href="tests.html?cat=${cat.id}" class="cat-card">
+      <span class="cat-emoji">${cat.emoji}</span>
+      <h3>${cat.name}</h3>
+      <p>${cat.desc}</p>
+    </a>
+  `).join('');
+</script>
+<nav class="mobile-bottom-nav">
+  <div class="mobile-bottom-nav-inner">
+    <a href="index.html"   class="mobile-nav-item active">  <span class="nav-icon">🏠</span>홈</a>
+    <a href="tests.html"   class="mobile-nav-item"> <span class="nav-icon">🧠</span>테스트</a>
+    <a href="saju.html"    class="mobile-nav-item">  <span class="nav-icon">🀄</span>사주</a>
+    <a href="astro.html"   class="mobile-nav-item"> <span class="nav-icon">⭐</span>별자리</a>
+    <a href="naming.html"  class="mobile-nav-item">  <span class="nav-icon">✨</span>작명</a>
+     <a href="pregnancy.html" class="mobile-nav-item"><span class="nav-icon">👶</span>임신운</a>
+  </div>
+</nav>
+
+<!-- 크레딧 모달 -->
+<div class="credit-modal-overlay" id="creditModalOverlay" onclick="if(event.target===this)closeCreditModal()">
+  <div class="credit-modal" id="creditModalBody"></div>
+</div>
+
+</body>
+</html>
+
+
+

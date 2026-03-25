@@ -2046,29 +2046,20 @@ function analyzeCompat() {
 
   setTimeout(() => {
     // ── 각자 사주 계산 ──
-    const mPillars = calcSajuPillars ? calcSajuPillars(mYear, mMonth, mDay, mHour) : null;
-    const pPillars = calcSajuPillars ? calcSajuPillars(pYear, pMonth, pDay, pHour) : null;
+    const { score: mScore, pillars: mPillars } = calcSajuScore(mYear, mMonth, mDay, mHour);
+    const { score: pScore, pillars: pPillars } = calcSajuScore(pYear, pMonth, pDay, pHour);
 
-    // pillars 계산 함수가 없으면 기존 score 방식 폴백
-    let mDa, pDa;
-    if (mPillars && pPillars) {
-      mDa = deepAnalyzeSaju(mPillars, mHour);
-      pDa = deepAnalyzeSaju(pPillars, pHour);
-    }
+    let mDa = deepAnalyzeSaju(mPillars, mHour);
+    let pDa = deepAnalyzeSaju(pPillars, pHour);
 
-    // fallback: calcSajuScore 사용
-    if (!mDa || !pDa) {
-      const { score: mScore, pillars: mP2 } = calcSajuScore(mYear, mMonth, mDay, mHour);
-      const { score: pScore, pillars: pP2 } = calcSajuScore(pYear, pMonth, pDay, pHour);
-      mDa = deepAnalyzeSaju(mP2, mHour) || {
-        dayMasterElem: Object.entries(mScore).sort((a,b)=>b[1]-a[1])[0][0],
-        raw: mScore, overElems: [], underElems: [], strengthType:'balanced'
-      };
-      pDa = deepAnalyzeSaju(pP2, pHour) || {
-        dayMasterElem: Object.entries(pScore).sort((a,b)=>b[1]-a[1])[0][0],
-        raw: pScore, overElems: [], underElems: [], strengthType:'balanced'
-      };
-    }
+    if (!mDa) mDa = {
+      dayMasterElem: Object.entries(mScore).sort((a,b)=>b[1]-a[1])[0][0],
+      raw: mScore, overElems: [], underElems: [], strengthType:'balanced'
+    };
+    if (!pDa) pDa = {
+      dayMasterElem: Object.entries(pScore).sort((a,b)=>b[1]-a[1])[0][0],
+      raw: pScore, overElems: [], underElems: [], strengthType:'balanced'
+    };
 
     const mElem = mDa.dayMasterElem;
     const pElem = pDa.dayMasterElem;
